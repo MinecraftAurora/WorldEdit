@@ -23,6 +23,7 @@ import com.github.minecraftaurora.auroralib.server.permission.AuroraPermissions;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.server.permission.PermissionAPI;
+import java.util.HashMap;
 
 public interface ForgePermissionsProvider {
 
@@ -33,6 +34,11 @@ public interface ForgePermissionsProvider {
     class VanillaPermissionsProvider implements ForgePermissionsProvider {
 
         private final ForgePlatform platform;
+        private static final HashMap<String, String> PERM_MAPPING = new HashMap<>();
+
+        static {
+            PERM_MAPPING.put("", "");
+        }
 
         public VanillaPermissionsProvider(ForgePlatform platform) {
             this.platform = platform;
@@ -41,15 +47,15 @@ public interface ForgePermissionsProvider {
         @Override
         public boolean hasPermission(ServerPlayerEntity player, String permission) {
             ForgeConfiguration configuration = platform.getConfiguration();
+            final mappedPerm = PERM_MAPPING.contains(permission) ? PERM_MAPPING.get(permission) : permission;
             return configuration.cheatMode
                 || ServerLifecycleHooks.getCurrentServer().getPlayerList().canSendCommands(player.getGameProfile())
-                || AuroraPermissions.profileHasPermission(player.getGameProfile(), permission)
+                || AuroraPermissions.profileHasPermission(player.getGameProfile(), mappedPerm)
                 || (configuration.creativeEnable && player.interactionManager.isCreative());
         }
 
         @Override
         public void registerPermission(String permission) {
-            AuroraPermissions.registerPermission(permission);
         }
     }
 
