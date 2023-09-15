@@ -25,11 +25,21 @@ configurations.all {
     }
 }
 
+repositories {
+    maven {
+        url = uri("https://repo.repsy.io/mvn/javaracing/aurora-lib-snapshots/")
+    }
+    maven {
+        url = uri("https://repo.repsy.io/mvn/javaracing/aurora-lib/")
+    }
+}
+
 dependencies {
     "api"(project(":worldedit-core"))
     "implementation"(enforcedPlatform("org.apache.logging.log4j:log4j-bom:2.11.2") {
         because("Forge provides Log4J at 2.11.2 (Mojang provides 2.8.1, but Forge bumps)")
     })
+    "implementation"("com.github.minecraftaurora:auroralib-deobf:1.2.0_b44")
 
     "minecraft"("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
 }

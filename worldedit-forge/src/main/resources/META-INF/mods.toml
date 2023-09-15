@@ -8,6 +8,7 @@ issueTrackerURL="https://discord.gg/enginehub"
 displayURL="https://worldedit.enginehub.org/"
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="worldedit-icon.png"
+credits="Modified by JavaRacing"
 # A text field displayed in the mod UI
 authors="sk89q, wizjany, TomyLobo, kenzierocks, Me4502"
 license="GPL"
