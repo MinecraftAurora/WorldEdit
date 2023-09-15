@@ -71,7 +71,10 @@ public class ForgePlayer extends AbstractPlayerActor {
 
     protected ForgePlayer(ServerPlayerEntity player) {
         this.player = player;
-        ThreadSafeCache.getInstance().getOnlineIds().add(getUniqueId());
+        try {
+            ThreadSafeCache.getInstance().getOnlineIds().add(getUniqueId());
+        } catch (Exception ignored) {
+        }
     }
 
     @Override

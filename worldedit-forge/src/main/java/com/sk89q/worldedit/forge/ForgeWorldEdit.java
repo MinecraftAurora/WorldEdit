@@ -102,6 +102,7 @@ public class ForgeWorldEdit {
     public static final String CUI_PLUGIN_CHANNEL = "cui";
 
     private ForgePermissionsProvider provider;
+    private Set<String> permissions;
 
     public static ForgeWorldEdit inst;
 
@@ -219,12 +220,9 @@ public class ForgeWorldEdit {
             .getAllCommands().collect(toList());
         for (Command command : commands) {
             CommandWrapper.register(event.getDispatcher(), command);
-            Set<String> perms = command.getCondition().as(PermissionCondition.class)
+            permissions = command.getCondition().as(PermissionCondition.class)
                 .map(PermissionCondition::getPermissions)
                 .orElseGet(Collections::emptySet);
-            if (!perms.isEmpty()) {
-                perms.forEach(getPermissionsProvider()::registerPermission);
-            }
         }
     }
 
@@ -245,6 +243,10 @@ public class ForgeWorldEdit {
 
     @SubscribeEvent
     public void serverStarted(FMLServerStartedEvent event) {
+        if (permissions != null && !permissions.isEmpty()) {
+            permissions.forEach(getPermissionsProvider()::registerPermission);
+        }
+
         setupRegistries(event.getServer());
 
         config.load();
