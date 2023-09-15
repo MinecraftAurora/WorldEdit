@@ -19,6 +19,7 @@
 
 package com.sk89q.worldedit.forge;
 
+import com.github.minecraftaurora.auroralib.server.permission.AuroraPermissions;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.server.permission.PermissionAPI;
@@ -42,12 +43,13 @@ public interface ForgePermissionsProvider {
             ForgeConfiguration configuration = platform.getConfiguration();
             return configuration.cheatMode
                 || ServerLifecycleHooks.getCurrentServer().getPlayerList().canSendCommands(player.getGameProfile())
-                || PermissionAPI.hasPermission(player, permission)
+                || AuroraPermissions.profileHasPermission(player.getGameProfile(), permission)
                 || (configuration.creativeEnable && player.interactionManager.isCreative());
         }
 
         @Override
         public void registerPermission(String permission) {
+            AuroraPermissions.registerPermission(permission);
         }
     }
 
