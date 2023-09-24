@@ -19,7 +19,7 @@
 
 package com.sk89q.worldedit.forge;
 
-import com.github.minecraftaurora.auroralib.server.permission.AuroraPermissions;
+import com.github.minecraftaurora.auroralib.common.permission.AuroraPermissions;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.server.permission.PermissionAPI;

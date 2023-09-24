@@ -39,7 +39,7 @@ dependencies {
     "implementation"(enforcedPlatform("org.apache.logging.log4j:log4j-bom:2.11.2") {
         because("Forge provides Log4J at 2.11.2 (Mojang provides 2.8.1, but Forge bumps)")
     })
-    "implementation"("com.github.minecraftaurora:auroralib-deobf:1.2.0_b44")
+    "implementation"("com.github.minecraftaurora:auroralib-deobf:1.2.1_b45")
 
     "minecraft"("net.minecraftforge:forge:$minecraftVersion-$forgeVersion")
 }
